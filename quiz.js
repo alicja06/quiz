@@ -88,6 +88,24 @@ const questions = [
 let currentQuestion = 0;
 let totalCash = 0;
 
+// Funkcja 50:50
+document.getElementById('lifeline-50-50').addEventListener('click', () => {
+    const correctAnswer = questions[currentQuestion].answer;
+    const options = document.querySelectorAll('input[name="option"]');
+    let removed = 0;
+
+    // Usuń dwa błędne odpowiedzi
+    options.forEach((option, index) => {
+        if (index !== correctAnswer && removed < 2) {
+            option.parentElement.style.display = 'none'; // Ukryj odpowiedź
+            removed++;
+        }
+    });
+
+    // Zablokuj możliwość użycia koła ratunkowego ponownie
+    document.getElementById('lifeline-50-50').disabled = true;
+});
+
 // Funkcja ładująca pytania
 function loadQuestion() 
 {
