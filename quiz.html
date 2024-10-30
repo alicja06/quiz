@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Milionerzy – wersja limitowana HIGHER</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+ 
+</head>
+
+<body>
+    <h1>Milionerzy – wersja limitowana HIGHER</h1>
+    <div id="welcome-panel" class="panel">
+        <h2>Witamy w grze Milionerzy!</h2>
+        <p>Czy jesteś pewien, że wiesz wszystko na temat ogrzewania, kominków i pieców?</p> 
+        <p>Ohoho, przekonamy się! Pamiętaj, że to gra o wszystko. No może nie o wszystko, bo o milion. Wirtualny. Nieważne – zaczynajmy!</p>
+        <button id="start-game">ROZPOCZNIJ GRĘ</button>
+    </div>
+
+    <div id="game" class="panel" style="display: none;">
+        
+        <div class="question" id="question">Witamy w grze!</div>
+
+        <div class="options" id="options"></div>
+        <button id="submit">Zatwierdź odpowiedź</button>
+        <button id="quit">Zakończ grę</button>
+        
+        <div class="result" id="result"></div>
+        <div class="cash" id="cash">Zarobione: 0 zł</div>
+
+    </div>
+
+    <script src="quiz.js"></script>
+
+</body>
+
+</html>
