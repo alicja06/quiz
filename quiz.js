@@ -106,6 +106,28 @@ document.getElementById('lifeline-50-50').addEventListener('click', () => {
     document.getElementById('lifeline-50-50').disabled = true;
 });
 
+document.getElementById('lifeline-phone').addEventListener('click', () => {
+    const correctAnswer = questions[currentQuestion].answer;
+    const options = questions[currentQuestion].options;
+    let friendAnswer;
+
+    // Szansa 70% na poprawną odpowiedź, 30% na inną
+    if (Math.random() < 0.7) {
+        friendAnswer = correctAnswer;
+    } else {
+        do {
+            friendAnswer = Math.floor(Math.random() * options.length);
+        } while (friendAnswer === correctAnswer); // Upewnij się, że nie zgadnie prawidłowej odpowiedzi przez przypadek
+    }
+
+    // Pokaż odpowiedź przyjaciela
+    alert(`Twój przyjaciel sugeruje odpowiedź: "${options[friendAnswer]}"`);
+    
+    // Wyłącz przycisk "Telefon do przyjaciela" po jednym użyciu
+    document.getElementById('lifeline-phone').disabled = true;
+});
+
+
 // Funkcja ładująca pytania
 function loadQuestion() 
 {
