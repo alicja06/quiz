@@ -169,7 +169,7 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
     let audienceVotes = new Array(options.length).fill(0);
 
     // Ustalanie prawdopodobieństwa dla poprawnej odpowiedzi
-    audienceVotes[correctAnswer] = Math.floor(Math.random() * 40) + 60; // 60-100% dla poprawnej
+    audienceVotes[correctAnswer] = Math.floor(Math.random() * 20) + 80; 
 
     // Ustalanie prawdopodobieństwa dla pozostałych odpowiedzi
     let remainingPercentage = 100 - audienceVotes[correctAnswer];
@@ -183,13 +183,18 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
     // Przyznaj resztę procentów ostatniej opcji
     audienceVotes[options.length - 1] += remainingPercentage;
 
-    // Wyświetlanie wyników w HTML
-    const audienceResultElement = document.getElementById('result');
-    let audienceResult = '';
+    // Wyświetlanie wyników w HTML jako lista
+    const audienceResultElement = document.getElementById('audienceResultText'); 
+    const ul = document.createElement('ul'); // Tworzymy nowy element ul
+
     options.forEach((option, index) => {
-        audienceResult += `${option}: ${audienceVotes[index]}%\n`;
+        const li = document.createElement('li'); // Tworzymy nowy element li
+        li.textContent = `${option}: ${audienceVotes[index]}%`; // Ustawiamy tekst elementu listy
+        ul.appendChild(li); // Dodajemy element li do ul
     });
-    audienceResultElement.textContent = `Wyniki głosowania publiczności:\n${audienceResult}`;
+
+    audienceResultElement.innerHTML = ''; // Czyścimy poprzednie wyniki
+    audienceResultElement.appendChild(ul); // Dodajemy ul do div
 
     // Wyłącz przycisk po użyciu
     document.getElementById('lifeline-audience').disabled = true;
