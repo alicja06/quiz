@@ -28,6 +28,7 @@ button
     font-size: 16px;
     margin: 5px;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
 }
 
 .result 
@@ -68,6 +69,7 @@ button
     padding: 8px 16px;
     font-size: 14px;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
 }
 
 #result
@@ -100,6 +102,20 @@ ul
     list-style-type: none;  
     padding: 0; 
     margin: 0; 
+    font-size: 12px;
+}
+
+#close-audience-result 
+{
+    display: block; /* Umożliwia centrowanie przycisku */
+    margin: 0 auto; /* Wyśrodkowuje przycisk */
+    padding: 10px 20px; /* Dostosuj padding według potrzeb */
+    cursor: pointer; /* Wskaźnik kursora */
+    font-size: 12px; 
+    font-family: "Poppins", sans-serif;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 25px;
 }
 
 

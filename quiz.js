@@ -198,6 +198,15 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
 
     // Wyłącz przycisk po użyciu
     document.getElementById('lifeline-audience').disabled = true;
+    
+    // Pokazanie przycisku zamykającego
+    const closeResultButton = document.getElementById('close-audience-result');
+    closeResultButton.style.display = 'block';
+
+    closeResultButton.addEventListener('click', () => {
+        audienceResultElement.innerHTML = ''; // Czyścimy wyniki
+        closeResultButton.style.display = 'none'; // Ukrywamy przycisk
+    });
 });
 
 
