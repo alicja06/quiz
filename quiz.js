@@ -1,4 +1,4 @@
-const questions = [
+const questions = [ //const = coś stałego, tutaj tworzymy tablicę pytań
     {
         question: "Jakie drewno jest najlepsze do palenia w kominku?",
         options: ["Dąb", "Sosna", "Topola", "Brzoza"],
@@ -85,18 +85,22 @@ const questions = [
 
 ];
 
-let currentQuestion = 0;
-let totalCash = 0;
+//tutaj definiujemy zmienne dla gry
+let currentQuestion = 0; //śledzi, które pytanie jest obecnie wyświetlane, jest równe zero, ponieważ zaczynamy od pierwszego pytania w questions
+let totalCash = 0; //przechowuje zarobioną kwotę, jest równe zero, bo gracz zaczyna od niczego
 
 // Funkcja 50:50
-document.getElementById('lifeline-50-50').addEventListener('click', () => {
-    const correctAnswer = questions[currentQuestion].answer;
-    const options = document.querySelectorAll('input[name="option"]');
-    let removed = 0;
+document.getElementById('lifeline-50-50').addEventListener('click', () => //dodajemy możliwość kliknięcia na lifeline, po tym zostanie wykonana następująca funkcja:
+{
+    const correctAnswer = questions[currentQuestion].answer; //pobiera indeks poprawnej odpowiedzi dla obecnego pytania
+    const options = document.querySelectorAll('input[name="option"]'); //pobiera wszystkie pola odpowiedzi (input) jako listę
+    let removed = 0; //tworzy licznik, który pozwala usunąć tylko dwie błędne odpowiedzi
 
     // Usuń dwie błędne odpowiedzi
-    options.forEach((option, index) => {
-        if (index !== correctAnswer && removed < 2) {
+    options.forEach((option, index) => //dla każdej odpowiedzi sprawdza czy indeks odpowiedzi różni się od indeksu poprawnej odpowiedzi
+    {
+        if (index !== correctAnswer && removed < 2) //jeśli odpowiedź nie jest poprawna i usunięto mniej niż 2 odpowiedzi to:
+        {
             option.parentElement.style.display = 'none'; // Ukryj odpowiedź
             removed++;
         }
@@ -109,45 +113,46 @@ document.getElementById('lifeline-50-50').addEventListener('click', () => {
 // Funkcja ładująca pytania
 function loadQuestion() 
 {
-    const questionElement = document.getElementById('question');
-    const optionsElement = document.getElementById('options');
-    const resultElement = document.getElementById('result');
-    const cashElement = document.getElementById('cash');
+    const questionElement = document.getElementById('question'); //pobiera element html z id question do wyświetlenia treści pytania
+    const optionsElement = document.getElementById('options'); //pobiera element html z id options do wyświetlenia odpowiedzi
+    const resultElement = document.getElementById('result'); //pobiera element html z id result, aby pokazać wynik (poprawna/błędna odpowiedź)
+    const cashElement = document.getElementById('cash'); //pobiera element html z id cash do wyświetlenia nagrody
 
-    if (currentQuestion < questions.length) 
+    if (currentQuestion < questions.length) //sprawdza czy obecne pytanie istnieje czy nie jesteśmy na końcu
         {
-        questionElement.textContent = questions[currentQuestion].question;
-        optionsElement.innerHTML = '';
-        questions[currentQuestion].options.forEach((option, index) => {
-            optionsElement.innerHTML += `<div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>`;
+        questionElement.textContent = questions[currentQuestion].question; //wstawia treść obecnego pytania do questionElement
+        optionsElement.innerHTML = ''; //czyści poprzednie odpowiedzi
+        questions[currentQuestion].options.forEach((option, index) => 
+        {
+            optionsElement.innerHTML += `<div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>`; //dla każdej opcji tworzy nowy blok html z przyciskiem radio, który wyświetla odpowiedzi??? że co? tego nie rozumiem nawet jak jest wytłumaczone
         });
-        resultElement.textContent = '';
+        resultElement.textContent = ''; //czyści wynik z poprzedniego pytania (np. poprawna odpowiedź)
     } 
-    else 
+    else //jeśli nie ma już pytań to:
     {
-        questionElement.textContent = 'Gra zakończona!';
-        optionsElement.innerHTML = '';
-        document.getElementById('submit').style.display = 'none';
+        questionElement.textContent = 'Gra zakończona!'; //wstawia tekst o zakończeniu gry
+        optionsElement.innerHTML = ''; //czyści odpowiedzi
+        document.getElementById('submit').style.display = 'none'; //ukrywa przycisk zatwierdź
     }
-    cashElement.textContent = `Zarobione: ${totalCash} zł`;
+    cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę zarobioną przez gracza
 }
 
-document.getElementById('lifeline-phone').addEventListener('click', () => 
+document.getElementById('lifeline-phone').addEventListener('click', () => //sprawdza czy ktoś kliknął w telefon do przyjaciela
 {
-    const correctAnswer = questions[currentQuestion].answer;
-    const options = questions[currentQuestion].options;
-    let friendAnswer;
+    const correctAnswer = questions[currentQuestion].answer; //zapisuje indeks poprawnej odpowiedzi na aktualne pytanie
+    const options = questions[currentQuestion].options; //zapisuje dostępne opcje odpowiedzi dla aktualnego pytania
+    let friendAnswer; //tutaj deklarujemy zmienną, która będzie przechowywać odpowiedź przyjaciela
 
     // Szansa 70% na poprawną odpowiedź, 30% na inną
     if (Math.random() < 0.7) 
     {
-        friendAnswer = correctAnswer;
+        friendAnswer = correctAnswer; //70% że poda dobrą odpowiedź
     } 
-    else 
+    else //w innym przypadku:
     {
         do 
         {
-            friendAnswer = Math.floor(Math.random() * options.length);
+            friendAnswer = Math.floor(Math.random() * options.length); //losowanie odpowiedzi
         } 
         while (friendAnswer === correctAnswer); // Upewnij się, że nie zgadnie prawidłowej odpowiedzi przez przypadek
     }
@@ -161,24 +166,26 @@ document.getElementById('lifeline-phone').addEventListener('click', () =>
 });
 
 // Obsługa przycisku "Zapytaj publiczność"
-document.getElementById('lifeline-audience').addEventListener('click', () => {
+document.getElementById('lifeline-audience').addEventListener('click', () => //czeka aż ktoś kliknie, wtedy się uruchamia funkcja:
+{
     const correctAnswer = questions[currentQuestion].answer;
     const options = questions[currentQuestion].options;
     
-    // Generowanie procentowych wyników dla każdej opcji
+    // Generowanie procentowych wyników dla każdej opcji, tworzy tablicę, nie wiem, czarna magia
     let audienceVotes = new Array(options.length).fill(0);
 
     // Ustalanie prawdopodobieństwa dla poprawnej odpowiedzi
     audienceVotes[correctAnswer] = Math.floor(Math.random() * 20) + 80; 
 
     // Ustalanie prawdopodobieństwa dla pozostałych odpowiedzi
-    let remainingPercentage = 100 - audienceVotes[correctAnswer];
-    for (let i = 0; i < options.length; i++) {
+    let remainingPercentage = 100 - audienceVotes[correctAnswer]; //oblicza ile procent głosów pozostaje do przyznania innym odpowiedziom
+    for (let i = 0; i < options.length; i++)
+    {
         if (i !== correctAnswer) {
             let percentage = Math.floor(Math.random() * remainingPercentage);
             audienceVotes[i] = percentage;
             remainingPercentage -= percentage;
-        }
+        } //przyznaje odpowiedziom losowe procenty, upewniając się, że nie przyznaje ich poprawnej odpowiedzi
     }
     // Przyznaj resztę procentów ostatniej opcji
     audienceVotes[options.length - 1] += remainingPercentage;
@@ -187,7 +194,8 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
     const audienceResultElement = document.getElementById('audienceResultText'); 
     const ul = document.createElement('ul'); // Tworzymy nowy element ul
 
-    options.forEach((option, index) => {
+    options.forEach((option, index) => 
+    {
         const li = document.createElement('li'); // Tworzymy nowy element li
         li.textContent = `${option}: ${audienceVotes[index]}%`; // Ustawiamy tekst elementu listy
         ul.appendChild(li); // Dodajemy element li do ul
@@ -203,7 +211,8 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
     const closeResultButton = document.getElementById('close-audience-result');
     closeResultButton.style.display = 'block';
 
-    closeResultButton.addEventListener('click', () => {
+    closeResultButton.addEventListener('click', () => //dodajemy funkcjonalność dla przycisku 
+    {
         audienceResultElement.innerHTML = ''; // Czyścimy wyniki
         closeResultButton.style.display = 'none'; // Ukrywamy przycisk
     });
@@ -211,26 +220,26 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
 
 
 // Rozpoczęcie gry po kliknięciu przycisku
-document.getElementById('start-game').addEventListener('click', () => 
+document.getElementById('start-game').addEventListener('click', () => //sprawdza czy ktoś kliknął ROZPOCZNIJ GRĘ i uruchamia funkcję:
 {
     document.getElementById('welcome-panel').style.display = 'none'; // Ukryj panel powitalny
     document.getElementById('game').style.display = 'block'; // Pokaż grę
-    document.getElementById('quit').style.display = 'none';
+    document.getElementById('quit').style.display = 'none'; //ukrywa przycisk zakończenia gry
     loadQuestion(); // Załaduj pierwsze pytanie
 });
 
 let lifelinesUsed = false; // Nowa zmienna do śledzenia użycia kół ratunkowych
 
 // Funkcja do sprawdzania odpowiedzi
-document.getElementById('submit').addEventListener('click', () => 
+document.getElementById('submit').addEventListener('click', () => //sprawdza czy ktoś kliknął w ZATWIERDŹ
 {
-const options = document.querySelectorAll('input[name="option"]');
-let selectedAnswer;
-options.forEach((option) => 
+const options = document.querySelectorAll('input[name="option"]'); //zbiera wszystkie opcje odpowiedzi w tablicy options
+let selectedAnswer; //deklarujemy zmienną, która przechowuje wartość wybranej odpowiedzi
+options.forEach((option) => //sprawdza która odpowiedź została wybrana
     {
     if (option.checked) 
         {
-        selectedAnswer = parseInt(option.value);
+        selectedAnswer = parseInt(option.value); //jeśli odpowiedź jest zaznaczona, przypisuje jej wartość do selectedAnswer
         }
     });
 
@@ -241,29 +250,30 @@ options.forEach((option) =>
         return;
     }
 
-    const correctAnswer = questions[currentQuestion].answer;
+    const correctAnswer = questions[currentQuestion].answer; //zapisuje poprawną odpowiedź dla aktualnego pytania
 
     // Sprawdź odpowiedź
     if (selectedAnswer === correctAnswer) 
     {
         totalCash = questions[currentQuestion].prize; // Zaktualizuj nagrodę
         // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
-        const cashElement = document.getElementById('cash');
-        cashElement.textContent = `Zarobione: ${totalCash} zł`;
-        document.getElementById('result').style.display = 'block'; 
+        const cashElement = document.getElementById('cash'); //zaktualizuj nagrodę
+        cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę nagrody
+        document.getElementById('result').style.display = 'block'; //pokazuje komunikat o poprawnej odpowiedzi
         document.getElementById('result').textContent = 'Poprawna odpowiedź!';
         document.getElementById('quit').style.display = 'none'; 
 
         currentQuestion++; 
         loadQuestion(); // Tylko po poprawnej odpowiedzi ładujemy nowe pytanie
     } 
-    else 
+    else //jeśli odpowiedź jest błędna to:
     {
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('result').textContent = 'Błędna odpowiedź!'; 
+        document.getElementById('result').style.display = 'block'; 
+        document.getElementById('result').textContent = 'Błędna odpowiedź!'; //wyświetla komunikat
         document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
         document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
-        if (!lifelinesUsed) {
+        if (!lifelinesUsed) //jeśli były używane koła ratunkowe to:
+        {
             document.getElementById('lifeline-phone').disabled = true;
             document.getElementById('lifeline-audience').disabled = true;
             document.getElementById('lifeline-50-50').disabled = true;
@@ -278,7 +288,8 @@ options.forEach((option) =>
 
 
 // Zakończenie gry
-document.getElementById('quit').addEventListener('click', () => {
+document.getElementById('quit').addEventListener('click', () => //sprawdza czy ktoś kliknął w ZAKOŃCZ
+{
     alert('Dziękujemy za grę!');
-    location.reload();
+    location.reload(); //odświeża stronę
 });
