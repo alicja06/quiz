@@ -2,6 +2,8 @@ body
 {
     font-family: "Poppins", sans-serif;
     background-image: url('dollar.png');
+    background-size: cover;
+    background-position: center;
     text-align: center;
     padding: 20px;
 }
