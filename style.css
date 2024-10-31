@@ -118,5 +118,10 @@ ul
     border-radius: 25px;
 }
 
+.panel
+{
+    max-width: 600px;
+    margin: 0 auto;
+}
 
 
