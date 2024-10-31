@@ -79,3 +79,21 @@ button
     margin: 0 auto;
 }
 
+#question 
+{
+    max-width: 600px; 
+    margin: 0 auto; /* Wyśrodkowanie elementu */
+    word-wrap: break-word; /* Zawijanie długich słów */
+    text-align: center; 
+}
+
+.options 
+{
+    max-width: 600px; 
+    margin: 10px auto; 
+    word-wrap: break-word; 
+    text-align: center; 
+}
+
+
+
