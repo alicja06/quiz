@@ -94,7 +94,7 @@ document.getElementById('lifeline-50-50').addEventListener('click', () => {
     const options = document.querySelectorAll('input[name="option"]');
     let removed = 0;
 
-    // Usuń dwa błędne odpowiedzi
+    // Usuń dwie błędne odpowiedzi
     options.forEach((option, index) => {
         if (index !== correctAnswer && removed < 2) {
             option.parentElement.style.display = 'none'; // Ukryj odpowiedź
