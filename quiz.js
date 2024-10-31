@@ -152,8 +152,9 @@ document.getElementById('lifeline-phone').addEventListener('click', () =>
         while (friendAnswer === correctAnswer); // Upewnij się, że nie zgadnie prawidłowej odpowiedzi przez przypadek
     }
 
-    // Pokaż odpowiedź przyjaciela
-    alert(`Twój przyjaciel sugeruje odpowiedź: "${options[friendAnswer]}"`);
+    // Pokaż odpowiedź przyjaciela w oknie HTML
+    const resultElement = document.getElementById('result');
+    resultElement.textContent = `Twój przyjaciel sugeruje odpowiedź: "${options[friendAnswer]}"`;
     
     // Wyłącz przycisk "Telefon do przyjaciela" po jednym użyciu
     document.getElementById('lifeline-phone').disabled = true;
@@ -182,8 +183,13 @@ document.getElementById('lifeline-audience').addEventListener('click', () => {
     // Przyznaj resztę procentów ostatniej opcji
     audienceVotes[options.length - 1] += remainingPercentage;
 
-    // Wyświetlanie wyników
-    alert('Wyniki publiczności:\n' + options.map((opt, idx) => `${opt}: ${audienceVotes[idx]}%`).join('\n'));
+    // Wyświetlanie wyników w HTML
+    const audienceResultElement = document.getElementById('result');
+    let audienceResult = '';
+    options.forEach((option, index) => {
+        audienceResult += `${option}: ${audienceVotes[index]}%\n`;
+    });
+    audienceResultElement.textContent = `Wyniki głosowania publiczności:\n${audienceResult}`;
 
     // Wyłącz przycisk po użyciu
     document.getElementById('lifeline-audience').disabled = true;
@@ -201,41 +207,48 @@ document.getElementById('start-game').addEventListener('click', () =>
 
 let lifelinesUsed = false; // Nowa zmienna do śledzenia użycia kół ratunkowych
 
-// Obsługa zatwierdzania odpowiedzi
-document.getElementById('submit').addEventListener('click', () => 
-{
-    const selectedOption = document.querySelector('input[name="option"]:checked');
-    if (selectedOption)
-    {
-        const answer = parseInt(selectedOption.value);
-        if (answer === questions[currentQuestion].answer) 
-        {
-            totalCash += questions[currentQuestion].prize;
-            document.getElementById('result').textContent = 'Poprawna odpowiedź!';
-            document.getElementById('quit').style.display = 'none'; 
-        } 
-        else
-        {
-            document.getElementById('result').textContent = 'Błędna odpowiedź!';
-            document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
-            document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
-            if (!lifelinesUsed) 
-            {
-                document.getElementById('lifeline-phone').disabled = true;
-                document.getElementById('lifeline-audience').disabled = true;
-                document.getElementById('lifeline-50-50').disabled = true;
-                lifelinesUsed = true; // Ustaw flagę na true
-            }
-            return;
+// Funkcja do sprawdzania odpowiedzi
+document.getElementById('submit').addEventListener('click', () => {
+    const options = document.querySelectorAll('input[name="option"]');
+    let selectedAnswer;
+    options.forEach((option) => {
+        if (option.checked) {
+            selectedAnswer = parseInt(option.value);
         }
-        currentQuestion++;
-        loadQuestion();
-    } 
-    else 
-    {
-        alert('Wybierz odpowiedź!');
+    });
+
+    if (selectedAnswer === undefined) {
+        alert('Proszę wybrać odpowiedź!');
+        return;
     }
+
+    const correctAnswer = questions[currentQuestion].answer;
+
+    // Sprawdź odpowiedź
+    if (selectedAnswer === correctAnswer) {
+        totalCash += questions[currentQuestion].prize; // Zaktualizuj nagrodę
+        // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
+        const cashElement = document.getElementById('cash');
+        cashElement.textContent = `Zarobione: ${totalCash} zł`;
+        document.getElementById('result').textContent = 'Poprawna odpowiedź!'; // Zmiana
+        document.getElementById('quit').style.display = 'none'; // Zmiana
+    } else {
+        document.getElementById('result').textContent = 'Błędna odpowiedź!'; // Zmiana
+        document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
+        document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
+        if (!lifelinesUsed) {
+            document.getElementById('lifeline-phone').disabled = true;
+            document.getElementById('lifeline-audience').disabled = true;
+            document.getElementById('lifeline-50-50').disabled = true;
+            lifelinesUsed = true; // Ustaw flagę na true
+        }
+        return;
+    }
+
+    currentQuestion++; // Zmiana
+    loadQuestion(); // Zmiana
 });
+
 
 // Zakończenie gry
 document.getElementById('quit').addEventListener('click', () => {
