@@ -4,7 +4,10 @@ body
     background-image: url('dollar.png');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     text-align: center;
+    height: 100%;
     padding: 20px;
 }
 
