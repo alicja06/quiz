@@ -153,6 +153,37 @@ document.getElementById('lifeline-phone').addEventListener('click', () => {
     document.getElementById('lifeline-phone').disabled = true;
 });
 
+// Obsługa przycisku "Zapytaj publiczność"
+document.getElementById('lifeline-audience').addEventListener('click', () => {
+    const correctAnswer = questions[currentQuestion].answer;
+    const options = questions[currentQuestion].options;
+    
+    // Generowanie procentowych wyników dla każdej opcji
+    let audienceVotes = new Array(options.length).fill(0);
+
+    // Ustalanie prawdopodobieństwa dla poprawnej odpowiedzi
+    audienceVotes[correctAnswer] = Math.floor(Math.random() * 40) + 60; // 60-100% dla poprawnej
+
+    // Ustalanie prawdopodobieństwa dla pozostałych odpowiedzi
+    let remainingPercentage = 100 - audienceVotes[correctAnswer];
+    for (let i = 0; i < options.length; i++) {
+        if (i !== correctAnswer) {
+            let percentage = Math.floor(Math.random() * remainingPercentage);
+            audienceVotes[i] = percentage;
+            remainingPercentage -= percentage;
+        }
+    }
+    // Przyznaj resztę procentów ostatniej opcji
+    audienceVotes[options.length - 1] += remainingPercentage;
+
+    // Wyświetlanie wyników
+    alert('Wyniki publiczności:\n' + options.map((opt, idx) => `${opt}: ${audienceVotes[idx]}%`).join('\n'));
+
+    // Wyłącz przycisk po użyciu
+    document.getElementById('lifeline-audience').disabled = true;
+});
+
+
 // Rozpoczęcie gry po kliknięciu przycisku
 document.getElementById('start-game').addEventListener('click', () => 
 {
