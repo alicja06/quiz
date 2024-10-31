@@ -2,13 +2,13 @@ body
 {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* okno wypełnia 100% strony*/
     font-family: "Poppins", sans-serif;
     background-image: url('dollar.png');
-    background-size: cover;
+    background-size: cover; /* obrazek w tle ma wypełniać całe tło */
     background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-attachment: fixed; /* podczas przewijania obrazek i tak pozostaje na swoim miejscu */
+    background-repeat: no-repeat; /* obraz tła nie powtarza się??? dodane na wszelki wypadek */
     text-align: center;
     padding: 20px;
     margin: 0; /* Usuń marginesy domyślne */
@@ -16,7 +16,7 @@ body
 
 .content
 {
-    flex: 1;
+    flex: 1; /* Pozwala kontenerowi .content zająć dostępną przestrzeń. Dzięki temu, jeśli strona jest pusta poniżej treści, .content wypełnia resztę miejsca, co ułatwia stopce pozostanie na dole. */
 }
 
 .question 
@@ -32,17 +32,11 @@ body
 
 button 
 {
-    padding: 10px 20px;
+    padding: 10px 20px; /* dodaje odstęp wewnątrz przycisków, zwiększając ich rozmiar */
     font-size: 16px;
-    margin: 5px;
+    margin: 5px; /* dodaje odstęp wokół każdego przycisku */
     cursor: pointer;
     font-family: "Poppins", sans-serif;
-}
-
-.result 
-{
-    font-size: 28px;
-    margin-top: 20px;
 }
 
 .cash 
@@ -59,8 +53,7 @@ button
     font-size: 16px; 
     cursor: pointer; 
     margin: 0 auto;
-    display: block;
-    position: relative;
+    position: relative; /* Pozycja „relatywna” oznacza, że można nim przesuwać za pomocą „top” lub „bottom” */
     top: 15px;
     bottom: 15px;
 }
