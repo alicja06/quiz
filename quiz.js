@@ -199,6 +199,8 @@ document.getElementById('start-game').addEventListener('click', () =>
     loadQuestion(); // Załaduj pierwsze pytanie
 });
 
+let lifelinesUsed = false; // Nowa zmienna do śledzenia użycia kół ratunkowych
+
 // Obsługa zatwierdzania odpowiedzi
 document.getElementById('submit').addEventListener('click', () => 
 {
@@ -217,6 +219,13 @@ document.getElementById('submit').addEventListener('click', () =>
             document.getElementById('result').textContent = 'Błędna odpowiedź!';
             document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
             document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
+            if (!lifelinesUsed) 
+            {
+                document.getElementById('lifeline-phone').disabled = true;
+                document.getElementById('lifeline-audience').disabled = true;
+                document.getElementById('lifeline-50-50').disabled = true;
+                lifelinesUsed = true; // Ustaw flagę na true
+            }
             return;
         }
         currentQuestion++;
