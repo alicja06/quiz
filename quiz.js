@@ -234,7 +234,9 @@ options.forEach((option) =>
         }
     });
 
-    if (selectedAnswer === undefined) {
+   //Sprawdź, czy odpowiedź została wybrana
+    if (selectedAnswer === undefined) 
+    {
         alert('Proszę wybrać odpowiedź!');
         return;
     }
@@ -248,14 +250,17 @@ options.forEach((option) =>
         // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
         const cashElement = document.getElementById('cash');
         cashElement.textContent = `Zarobione: ${totalCash} zł`;
-        document.getElementById('result').textContent = 'Poprawna odpowiedź!';
         document.getElementById('result').style.display = 'block'; 
+        document.getElementById('result').textContent = 'Poprawna odpowiedź!';
         document.getElementById('quit').style.display = 'none'; 
+
+        currentQuestion++; 
+        loadQuestion(); // Tylko po poprawnej odpowiedzi ładujemy nowe pytanie
     } 
     else 
     {
-        document.getElementById('result').textContent = 'Błędna odpowiedź!'; 
         document.getElementById('result').style.display = 'block';
+        document.getElementById('result').textContent = 'Błędna odpowiedź!'; 
         document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
         document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
         if (!lifelinesUsed) {
