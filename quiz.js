@@ -132,18 +132,24 @@ function loadQuestion()
     cashElement.textContent = `Zarobione: ${totalCash} zł`;
 }
 
-document.getElementById('lifeline-phone').addEventListener('click', () => {
+document.getElementById('lifeline-phone').addEventListener('click', () => 
+{
     const correctAnswer = questions[currentQuestion].answer;
     const options = questions[currentQuestion].options;
     let friendAnswer;
 
     // Szansa 70% na poprawną odpowiedź, 30% na inną
-    if (Math.random() < 0.7) {
+    if (Math.random() < 0.7) 
+    {
         friendAnswer = correctAnswer;
-    } else {
-        do {
+    } 
+    else 
+    {
+        do 
+        {
             friendAnswer = Math.floor(Math.random() * options.length);
-        } while (friendAnswer === correctAnswer); // Upewnij się, że nie zgadnie prawidłowej odpowiedzi przez przypadek
+        } 
+        while (friendAnswer === correctAnswer); // Upewnij się, że nie zgadnie prawidłowej odpowiedzi przez przypadek
     }
 
     // Pokaż odpowiedź przyjaciela
