@@ -248,12 +248,14 @@ options.forEach((option) =>
         // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
         const cashElement = document.getElementById('cash');
         cashElement.textContent = `Zarobione: ${totalCash} zł`;
-        document.getElementById('result').textContent = 'Poprawna odpowiedź!'; 
+        document.getElementById('result').textContent = 'Poprawna odpowiedź!';
+        document.getElementById('result').style.display = 'block'; 
         document.getElementById('quit').style.display = 'none'; 
     } 
     else 
     {
         document.getElementById('result').textContent = 'Błędna odpowiedź!'; 
+        document.getElementById('result').style.display = 'block';
         document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
         document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
         if (!lifelinesUsed) {
