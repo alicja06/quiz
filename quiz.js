@@ -279,9 +279,6 @@ options.forEach((option) => //sprawdza która odpowiedź została wybrana
         }
         return;
     }
-
-    currentQuestion++; 
-    loadQuestion(); 
 });
 
 
