@@ -259,17 +259,21 @@ options.forEach((option) => //sprawdza która odpowiedź została wybrana
         cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę nagrody
         document.getElementById('result').style.display = 'block'; //pokazuje komunikat o poprawnej odpowiedzi
         document.getElementById('result').textContent = 'Poprawna odpowiedź!';
+        setTimeout(() => {
+            currentQuestion++; 
+            loadQuestion();
+        }, 2000); // 2 sekundy
         document.getElementById('quit').style.display = 'none'; 
-
-        currentQuestion++; 
-        loadQuestion(); // Tylko po poprawnej odpowiedzi ładujemy nowe pytanie
     } 
     else //jeśli odpowiedź jest błędna to:
     {
         document.getElementById('result').style.display = 'block'; 
-        document.getElementById('result').textContent = 'Błędna odpowiedź!'; //wyświetla komunikat
+        document.getElementById('result').textContent = 'Błędna odpowiedź!'; 
         document.getElementById('submit').style.display = 'none'; // Ukryj przycisk zatwierdzania
-        document.getElementById('quit').style.display = 'block'; // Pokaż przycisk zakończenia gry
+        setTimeout(() => {
+            document.getElementById('quit').style.display = 'block'; // Pokaż przycisk po 2 sekundach
+        }, 2000);
+        
         if (!lifelinesUsed) //jeśli były używane koła ratunkowe to:
         {
             document.getElementById('lifeline-phone').disabled = true;
