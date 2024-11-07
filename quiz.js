@@ -85,9 +85,44 @@ const questions = [ //const = coś stałego, tutaj tworzymy tablicę pytań
 
 ];
 
-//tutaj definiujemy zmienne dla gry
-let currentQuestion = 0; //śledzi, które pytanie jest obecnie wyświetlane, jest równe zero, ponieważ zaczynamy od pierwszego pytania w questions
-let totalCash = 0; //przechowuje zarobioną kwotę, jest równe zero, bo gracz zaczyna od niczego
+let currentQuestion = 0; 
+let totalCash = 0; 
+
+// Rozpoczęcie gry po kliknięciu przycisku
+document.getElementById('start-game').addEventListener('click', () => //sprawdza czy ktoś kliknął ROZPOCZNIJ GRĘ i uruchamia funkcję:
+{
+    document.getElementById('welcome-panel').style.display = 'none'; // Ukryj panel powitalny
+    document.getElementById('game').style.display = 'block'; // Pokaż grę
+    document.getElementById('quit').style.display = 'none'; //ukrywa przycisk zakończenia gry
+    loadQuestion(); // Załaduj pierwsze pytanie
+});
+
+// Funkcja ładująca pytania
+function loadQuestion() 
+{
+    const questionElement = document.getElementById('question'); //pobiera element html z id question do wyświetlenia treści pytania
+    const optionsElement = document.getElementById('options'); //pobiera element html z id options do wyświetlenia odpowiedzi
+    const resultElement = document.getElementById('result'); //pobiera element html z id result, aby pokazać wynik (poprawna/błędna odpowiedź)
+    const cashElement = document.getElementById('cash'); //pobiera element html z id cash do wyświetlenia nagrody
+
+    if (currentQuestion < questions.length) //sprawdza czy obecne pytanie istnieje czy nie jesteśmy na końcu
+        {
+        questionElement.textContent = questions[currentQuestion].question; //wstawia treść obecnego pytania do questionElement
+        optionsElement.innerHTML = ''; //czyści poprzednie odpowiedzi
+        questions[currentQuestion].options.forEach((option, index) => 
+        {
+            optionsElement.innerHTML += `<div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>`; 
+        });
+        resultElement.textContent = ''; //czyści wynik z poprzedniego pytania (np. poprawna odpowiedź)
+    } 
+    else //jeśli nie ma już pytań to:
+    {
+        questionElement.textContent = 'Gra zakończona!'; //wstawia tekst o zakończeniu gry
+        optionsElement.innerHTML = ''; //czyści odpowiedzi
+        document.getElementById('submit').style.display = 'none'; //ukrywa przycisk zatwierdź
+    }
+    cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę zarobioną przez gracza
+}
 
 // Funkcja 50:50
 document.getElementById('lifeline-50-50').addEventListener('click', () => //dodajemy możliwość kliknięcia na lifeline, po tym zostanie wykonana następująca funkcja:
@@ -109,33 +144,6 @@ document.getElementById('lifeline-50-50').addEventListener('click', () => //doda
     // Zablokuj możliwość użycia koła ratunkowego ponownie
     document.getElementById('lifeline-50-50').disabled = true;
 });
-
-// Funkcja ładująca pytania
-function loadQuestion() 
-{
-    const questionElement = document.getElementById('question'); //pobiera element html z id question do wyświetlenia treści pytania
-    const optionsElement = document.getElementById('options'); //pobiera element html z id options do wyświetlenia odpowiedzi
-    const resultElement = document.getElementById('result'); //pobiera element html z id result, aby pokazać wynik (poprawna/błędna odpowiedź)
-    const cashElement = document.getElementById('cash'); //pobiera element html z id cash do wyświetlenia nagrody
-
-    if (currentQuestion < questions.length) //sprawdza czy obecne pytanie istnieje czy nie jesteśmy na końcu
-        {
-        questionElement.textContent = questions[currentQuestion].question; //wstawia treść obecnego pytania do questionElement
-        optionsElement.innerHTML = ''; //czyści poprzednie odpowiedzi
-        questions[currentQuestion].options.forEach((option, index) => 
-        {
-            optionsElement.innerHTML += `<div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>`; //dla każdej opcji tworzy nowy blok html z przyciskiem radio, który wyświetla odpowiedzi??? że co? tego nie rozumiem nawet jak jest wytłumaczone
-        });
-        resultElement.textContent = ''; //czyści wynik z poprzedniego pytania (np. poprawna odpowiedź)
-    } 
-    else //jeśli nie ma już pytań to:
-    {
-        questionElement.textContent = 'Gra zakończona!'; //wstawia tekst o zakończeniu gry
-        optionsElement.innerHTML = ''; //czyści odpowiedzi
-        document.getElementById('submit').style.display = 'none'; //ukrywa przycisk zatwierdź
-    }
-    cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę zarobioną przez gracza
-}
 
 document.getElementById('lifeline-phone').addEventListener('click', () => //sprawdza czy ktoś kliknął w telefon do przyjaciela
 {
@@ -179,7 +187,7 @@ document.getElementById('lifeline-audience').addEventListener('click', () => //c
 
     // Ustalanie prawdopodobieństwa dla pozostałych odpowiedzi
     let remainingPercentage = 100 - audienceVotes[correctAnswer]; //oblicza ile procent głosów pozostaje do przyznania innym odpowiedziom
-    for (let i = 0; i < options.length; i++)
+    for (let i=0; i<options.length; i++)
     {
         if (i !== correctAnswer) {
             let percentage = Math.floor(Math.random() * remainingPercentage);
@@ -216,16 +224,6 @@ document.getElementById('lifeline-audience').addEventListener('click', () => //c
         audienceResultElement.innerHTML = ''; // Czyścimy wyniki
         closeResultButton.style.display = 'none'; // Ukrywamy przycisk
     });
-});
-
-
-// Rozpoczęcie gry po kliknięciu przycisku
-document.getElementById('start-game').addEventListener('click', () => //sprawdza czy ktoś kliknął ROZPOCZNIJ GRĘ i uruchamia funkcję:
-{
-    document.getElementById('welcome-panel').style.display = 'none'; // Ukryj panel powitalny
-    document.getElementById('game').style.display = 'block'; // Pokaż grę
-    document.getElementById('quit').style.display = 'none'; //ukrywa przycisk zakończenia gry
-    loadQuestion(); // Załaduj pierwsze pytanie
 });
 
 let lifelinesUsed = false; // Nowa zmienna do śledzenia użycia kół ratunkowych
