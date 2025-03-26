@@ -98,44 +98,30 @@ document.getElementById('start-game').addEventListener('click', () => //sprawdza
 });
 
 // Funkcja ładująca pytania
-function loadQuestion() {
-    clearInterval(timer); // Resetuje licznik przy nowym pytaniu
-    timeLeft = 30; // Ustawia nowy czas na 30s
-    document.getElementById('timer').textContent = `Pozostały czas: ${timeLeft}s`;
+function loadQuestion() 
+{
+    const questionElement = document.getElementById('question'); //pobiera element html z id question do wyświetlenia treści pytania
+    const optionsElement = document.getElementById('options'); //pobiera element html z id options do wyświetlenia odpowiedzi
+    const resultElement = document.getElementById('result'); //pobiera element html z id result, aby pokazać wynik (poprawna/błędna odpowiedź)
+    const cashElement = document.getElementById('cash'); //pobiera element html z id cash do wyświetlenia nagrody
 
-    timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').textContent = `Pozostały czas: ${timeLeft}s`;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert('Czas minął! Koniec gry.');
-            location.reload(); // Restartuje grę
-        }
-    }, 1000);
-    
-    const questionElement = document.getElementById('question');
-    const optionsElement = document.getElementById('options');
-    const resultElement = document.getElementById('result');
-    const cashElement = document.getElementById('cash');
-
-    if (currentQuestion < questions.length) {
-        questionElement.textContent = questions[currentQuestion].question;
-        optionsElement.innerHTML = '';
-        questions[currentQuestion].options.forEach((option, index) => {
-            optionsElement.innerHTML += `<div>
-                <input type="radio" name="option" value="${index}" id="option${index}">
-                <label for="option${index}">${option}</label>
-            </div>`;
+    if (currentQuestion < questions.length) //sprawdza czy obecne pytanie istnieje czy nie jesteśmy na końcu
+        {
+        questionElement.textContent = questions[currentQuestion].question; //wstawia treść obecnego pytania do questionElement
+        optionsElement.innerHTML = ''; //czyści poprzednie odpowiedzi
+        questions[currentQuestion].options.forEach((option, index) => 
+        {
+            optionsElement.innerHTML += <div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>; 
         });
-        resultElement.textContent = '';
-    } else {
-        clearInterval(timer);
-        questionElement.textContent = 'Gra zakończona!';
-        optionsElement.innerHTML = '';
-        document.getElementById('submit').style.display = 'none';
+        resultElement.textContent = ''; 
+    } 
+    else 
+    {
+        questionElement.textContent = 'Gra zakończona!'; 
+        optionsElement.innerHTML = ''; 
+        document.getElementById('submit').style.display = 'none'; 
     }
-    cashElement.textContent = `Zarobione: ${totalCash} zł`;
+    cashElement.textContent = Zarobione: ${totalCash} zł; /
 }
 
 // Funkcja 50:50
