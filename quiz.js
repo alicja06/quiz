@@ -87,8 +87,6 @@ const questions = [ //const = coś stałego, tutaj tworzymy tablicę pytań
 
 let currentQuestion = 0; 
 let totalCash = 0; 
-let timeLeft = 30;
-let timer;
 
 // Rozpoczęcie gry po kliknięciu przycisku
 document.getElementById('start-game').addEventListener('click', () => //sprawdza czy ktoś kliknął ROZPOCZNIJ GRĘ i uruchamia funkcję:
