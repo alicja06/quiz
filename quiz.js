@@ -245,42 +245,40 @@ document.getElementById('lifeline-audience').addEventListener('click', () => //c
 let lifelinesUsed = false; // Nowa zmienna do śledzenia użycia kół ratunkowych
 
 // Funkcja do sprawdzania odpowiedzi
-document.getElementById('submit').addEventListener('click', () => {
-    clearInterval(timer); // Zatrzymuje licznik po odpowiedzi
-    const options = document.querySelectorAll('input[name="option"]');
-    let selectedAnswer;
-
-    options.forEach((option) => {
-        if (option.checked) {
-            selectedAnswer = parseInt(option.value);
+document.getElementById('submit').addEventListener('click', () => //sprawdza czy ktoś kliknął w ZATWIERDŹ
+{
+const options = document.querySelectorAll('input[name="option"]'); //zbiera wszystkie opcje odpowiedzi w tablicy options
+let selectedAnswer; //deklarujemy zmienną, która przechowuje wartość wybranej odpowiedzi
+options.forEach((option) => //sprawdza która odpowiedź została wybrana
+    {
+    if (option.checked) 
+        {
+        selectedAnswer = parseInt(option.value); //jeśli odpowiedź jest zaznaczona, przypisuje jej wartość do selectedAnswer
         }
     });
 
-    if (selectedAnswer === undefined) {
+   //Sprawdź, czy odpowiedź została wybrana
+    if (selectedAnswer === undefined) 
+    {
         alert('Proszę wybrać odpowiedź!');
         return;
     }
 
-    const correctAnswer = questions[currentQuestion].answer;
+    const correctAnswer = questions[currentQuestion].answer; //zapisuje poprawną odpowiedź dla aktualnego pytania
 
-    if (selectedAnswer === correctAnswer) {
-        totalCash = questions[currentQuestion].prize;
-        document.getElementById('cash').textContent = `Zarobione: ${totalCash} zł`;
-        document.getElementById('result').style.display = 'block';
+    // Sprawdź odpowiedź
+    if (selectedAnswer === correctAnswer) 
+    {
+        totalCash = questions[currentQuestion].prize; // Zaktualizuj nagrodę
+        // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
+        const cashElement = document.getElementById('cash'); //zaktualizuj nagrodę
+        cashElement.textContent = Zarobione: ${totalCash} zł; //wyświetla aktualną kwotę nagrody
+        document.getElementById('result').style.display = 'block'; //pokazuje komunikat o poprawnej odpowiedzi
         document.getElementById('result').textContent = 'Poprawna odpowiedź!';
         setTimeout(() => {
-            currentQuestion++;
+            currentQuestion++; 
             loadQuestion();
-        }, 2000);
-    } else {
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('result').textContent = 'Błędna odpowiedź!';
-        document.getElementById('submit').style.display = 'none';
-        setTimeout(() => {
-            document.getElementById('quit').style.display = 'block';
-        }, 2000);
-    }
-});
+        }, 2000); // 2 sekundy
         document.getElementById('quit').style.display = 'none'; 
     } 
     else //jeśli odpowiedź jest błędna to:
