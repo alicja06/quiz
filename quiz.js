@@ -111,17 +111,17 @@ function loadQuestion()
         optionsElement.innerHTML = ''; //czyści poprzednie odpowiedzi
         questions[currentQuestion].options.forEach((option, index) => 
         {
-            optionsElement.innerHTML += <div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>; 
+            optionsElement.innerHTML += `<div><input type="radio" name="option" value="${index}" id="option${index}"><label for="option${index}">${option}</label></div>`; 
         });
-        resultElement.textContent = ''; 
+        resultElement.textContent = ''; //czyści wynik z poprzedniego pytania (np. poprawna odpowiedź)
     } 
-    else 
+    else //jeśli nie ma już pytań to:
     {
-        questionElement.textContent = 'Gra zakończona!'; 
-        optionsElement.innerHTML = ''; 
-        document.getElementById('submit').style.display = 'none'; 
+        questionElement.textContent = 'Gra zakończona!'; //wstawia tekst o zakończeniu gry
+        optionsElement.innerHTML = ''; //czyści odpowiedzi
+        document.getElementById('submit').style.display = 'none'; //ukrywa przycisk zatwierdź
     }
-    cashElement.textContent = Zarobione: ${totalCash} zł; /
+    cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę zarobioną przez gracza
 }
 
 // Funkcja 50:50
@@ -256,7 +256,7 @@ options.forEach((option) => //sprawdza która odpowiedź została wybrana
         totalCash = questions[currentQuestion].prize; // Zaktualizuj nagrodę
         // Zaktualizuj komunikat o zdobytej nagrodzie na stronie
         const cashElement = document.getElementById('cash'); //zaktualizuj nagrodę
-        cashElement.textContent = Zarobione: ${totalCash} zł; //wyświetla aktualną kwotę nagrody
+        cashElement.textContent = `Zarobione: ${totalCash} zł`; //wyświetla aktualną kwotę nagrody
         document.getElementById('result').style.display = 'block'; //pokazuje komunikat o poprawnej odpowiedzi
         document.getElementById('result').textContent = 'Poprawna odpowiedź!';
         setTimeout(() => {
